@@ -5,6 +5,6 @@ final public class VariaveisSQL {
             USERNAME = "username",
             PASSWORD = "password",
             DATABASE = "database",
-            HOST = "host";
+            HOST = "hostt";
 
 }
