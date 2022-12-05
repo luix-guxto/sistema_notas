@@ -9,7 +9,7 @@ public class DataBase {
 
     public void createDataBase(){
         // cria o banco de dados
-        Statement stmt = null;
+        Statement stmt;
         String sql = "CREATE DATABASE IF NOT EXISTS `db_sistema_notas` /*!40100 DEFAULT CHARACTER SET utf8 */;";
         try {
             stmt = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
@@ -22,21 +22,21 @@ public class DataBase {
 
     public void createTabelaProfessores(){
 
-        Statement stmt = null;
-        String sql = "USE db_sistema_notas; CREATE TABLE if not exists professores( id int NOT NULL unique auto_increment, nome varchar(50) not null, cpf varchar(11) not null, numero varchar(11) not null, email varchar(50) not null, senha varchar(50) not null, primary key(id));";
+        Statement stmt;
+        String sql = "CREATE TABLE if not exists professores( id int NOT NULL unique auto_increment, nome varchar(50) not null, cpf varchar(11) not null, numero varchar(11) not null, email varchar(50) not null, senha varchar(50) not null, primary key(id));";
         try {
             stmt = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
             stmt.executeUpdate(sql);
             System.out.println("Tabela professores criada com sucesso!");
         } catch (Exception e) {
             System.out.println("Erro ao criar a tabela professores!");
+            e.printStackTrace();
         }
     }
 
     public void createTabelaAlunos(){
-        Statement stmt = null;
-        String sql = "USE db_sistema_notas;"
-                +"create table if not exists alunos("
+        Statement stmt;
+        String sql = "create table if not exists alunos("
                 +"id int not null unique auto_increment,"
                 +"professor_id int not null,"
                 +"nome varchar(50) not null,"
@@ -51,13 +51,13 @@ public class DataBase {
             System.out.println("Tabela alunos criada com sucesso!");
         } catch (Exception e) {
             System.out.println("Erro ao criar a tabela alunos!");
+            e.printStackTrace();
         }
     }
 
     public void criarTabelaAtividades(){
-        Statement stmt = null;
-        String sql = "USE db_sistema_notas;"
-                +"create table if not exists atividades("
+        Statement stmt;
+        String sql = "create table if not exists atividades("
                 +"id int not null unique auto_increment,"
                 +"aluno_id int not null,"
                 +"nome varchar(50) not null,"
@@ -72,6 +72,7 @@ public class DataBase {
             System.out.println("Tabela atividades criada com sucesso!");
         } catch (Exception e) {
             System.out.println("Erro ao criar a tabela atividades!");
+            e.printStackTrace();
         }
     }
 
@@ -81,4 +82,11 @@ public class DataBase {
         createTabelaAlunos();
         criarTabelaAtividades();
     }
+
+    // testes e criação das tabelas
+    public static void main(String[] args) {
+        DataBase db = new DataBase();
+        db.criarTabelas();
+    }
 }
+
