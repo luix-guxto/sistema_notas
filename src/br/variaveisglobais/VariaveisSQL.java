@@ -5,6 +5,6 @@ final public class VariaveisSQL {
             USERNAME = "username",
             PASSWORD = "senha",
             DATABASE = "database",
-            HOST = "linkserver";
+            HOST = "teste";
 
 }
