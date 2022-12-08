@@ -1,7 +1,7 @@
 package br.telas;
 
 import br.usuarios.UsuarioDAO;
-import br.variaveisglobais.VariaveisLogin;
+import br.variaveisglobais.VariaveisTela;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,12 +16,12 @@ public class Login extends JFrame{
     private JButton registrar;
 
     public Login(){
-        super("Login - Sistema de Notas Escolares");
+        super("Login");
         setContentPane(fundo);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getRootPane().setDefaultButton(entrar);
-        setPreferredSize(new Dimension(VariaveisLogin.LARGURA, VariaveisLogin.ALTURA));
-        setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2- VariaveisLogin.LARGURA/2, 20);
+        setPreferredSize(new Dimension(VariaveisTela.LARGURA, VariaveisTela.ALTURA));
+        setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2- VariaveisTela.LARGURA/2, 20);
         setResizable(false);
         entrar.addActionListener(e -> onEntrar());
         registrar.addActionListener(e -> onRegistrar());

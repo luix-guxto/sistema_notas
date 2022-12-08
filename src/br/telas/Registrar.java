@@ -4,7 +4,7 @@ import br.usuarios.UsuarioDAO;
 import ferramentas.utilidades.ValidaCPF;
 import ferramentas.utilidades.ValidaEmail;
 import ferramentas.utilidades.ValidaTelefone;
-import br.variaveisglobais.VariaveisLogin;
+import br.variaveisglobais.VariaveisTela;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,14 +28,15 @@ public class Registrar extends JFrame {
     private JPasswordField senhaConfirm;
 
     public Registrar() {
-        super("Registrar - Sistema de Notas Escolares");
+        super("Registrar");
         setContentPane(fundo);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(VariaveisLogin.LARGURA, VariaveisLogin.ALTURA));
-        setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2- VariaveisLogin.LARGURA/2, 20);
+        setPreferredSize(new Dimension(VariaveisTela.LARGURA, VariaveisTela.ALTURA));
+        setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2- VariaveisTela.LARGURA/2, 20);
         setResizable(false);
         pack();
         setVisible(true);
+        getRootPane().setDefaultButton(registrarButton);
 
         registrarButton.addActionListener(e -> onRegistrar());
         cancelButton.addActionListener(e -> onCancel());
