@@ -19,6 +19,7 @@ public class EditarAlunos extends JFrame {
     private JButton buscar;
     private JButton salvar;
     private JButton atividades;
+    private JButton boletim;
     private Aluno aluno;
 
     public EditarAlunos(Aluno aluno) {
@@ -45,6 +46,24 @@ public class EditarAlunos extends JFrame {
         buscar.addActionListener(e -> onBuscar());
         salvar.addActionListener(e -> onSalvar());
         atividades.addActionListener(e -> onAtividades());
+        boletim.addActionListener(e -> onBoletim());
+
+    }
+
+    private void onBoletim() {
+        if(aluno == null) {
+            JOptionPane.showMessageDialog(null, "Primeiro busque um aluno");
+            return;
+        }
+        // escolhe e salva o path de onde será criado o arquivo
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Escolha o local para salvar o boletim do aluno: "+aluno.getNome());
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            String path = fileChooser.getSelectedFile().getAbsolutePath();
+            FuncoesAlunos.gerarBoletim(aluno, path);
+        }
     }
 
     private void onAtividades() {
@@ -59,7 +78,7 @@ public class EditarAlunos extends JFrame {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
             return;
         } else {
-            aluno = new Aluno(aluno.getId(), nome.getText(), aluno.getNota_final(), Integer.parseInt(faltas.getText()));
+            aluno = new Aluno(aluno.getId(), nome.getText(), Integer.parseInt(faltas.getText()), aluno.getNota_final());
         }
         FuncoesAlunos.atualizarAluno(aluno);
         JOptionPane.showMessageDialog(null, "Aluno atualizado com sucesso!");
@@ -72,9 +91,13 @@ public class EditarAlunos extends JFrame {
         else{
             if(!id.getText().isEmpty()){
                 aluno = FuncoesAlunos.buscarAlunoPorId(Integer.parseInt(id.getText()));
+                assert aluno != null;
+                System.out.println("faltas: "+aluno.getFaltas()+" - nota: "+aluno.getNota_final());
             }
             else{
                 aluno = FuncoesAlunos.buscarAlunoPorNome(nome.getText());
+                assert aluno != null;
+                System.out.println("faltas: "+aluno.getFaltas()+" - nota: "+aluno.getNota_final());
             }
             if(aluno == null){
                 JOptionPane.showMessageDialog(null, "Aluno não encontrado!");

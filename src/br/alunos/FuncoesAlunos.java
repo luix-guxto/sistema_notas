@@ -3,7 +3,12 @@ package br.alunos;
 import br.usuarios.UsuarioLogado;
 import sql.mysql.ConecaoMySQL;
 
+import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 public class FuncoesAlunos {
@@ -152,10 +157,50 @@ public class FuncoesAlunos {
     public static void limparAlunos() {
         // limpa a tabela de alunos
         try {
+            Aluno[] alunos = FuncoesAlunos.listaAlunos();
+            assert alunos != null;
+
+            for (Aluno aluno : alunos) {
+                Statement stmt = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
+                stmt.executeUpdate("DELETE FROM atividades WHERE aluno_id = " + aluno.getId() + ";");
+            }
             Statement stmt = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
             stmt.executeUpdate("DELETE FROM alunos WHERE professor_id = " + UsuarioLogado.getUsuarioLogado().getId() + ";");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void gerarBoletim(Aluno aluno, String path) {
+        String data = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        String texto = "- Boletim do aluno - "+ data
+                +"\nNome: "+ aluno.getNome()
+                +"\nFaltas: "+aluno.getFaltas()
+                +"\nNota final: "+aluno.getNota_final()
+                +"\n\n- Atividades -\n";
+        AtividadeAluno[] atividades = listaAtividades(aluno);
+        assert atividades != null;
+        for (AtividadeAluno atividade : atividades) {
+            texto = texto.concat(
+                    "Nome: "+atividade.getNome()
+                    +"\nNota total: "+atividade.getNota_total()
+                    +"\nNota recebida: "+atividade.getNota_recebida()
+                    +"\n\n");
+        }
+        try {
+            FileWriter myWriter = new FileWriter
+                    (path + "/boletim_" + aluno.getNome() + ".txt");
+            myWriter.write(texto);
+            myWriter.close();
+            System.out.println("Boletim gerado com sucesso!");
+
+            // abre o arquivo gerado
+            File file = new File(path + "/boletim_" + aluno.getNome() + ".txt");
+            Desktop desktop = Desktop.getDesktop();
+            desktop.open(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Erro ao gerar boletim!");
         }
     }
 }

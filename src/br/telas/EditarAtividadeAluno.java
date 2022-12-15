@@ -46,8 +46,9 @@ public class EditarAtividadeAluno extends JFrame {
         } else if (Integer.parseInt(nota_recebida.getText())>atividadeAluno.getNota_total()) {
             JOptionPane.showMessageDialog(null, "A nota recebida nao pode ser maior que a nota total!");
         } else{
+            int notaAnti = atividadeAluno.getNota_recebida();
             atividadeAluno.setNota_recebida(Integer.parseInt(nota_recebida.getText()));
-            aluno.setNota_final(aluno.getNota_final()+atividadeAluno.getNota_recebida());
+            aluno.setNota_final(aluno.getNota_final()+atividadeAluno.getNota_recebida()-notaAnti);
             FuncoesAlunos.atualizarAluno(aluno);
             FuncoesAlunos.atualizarAtividadeAluno(atividadeAluno);
             JOptionPane.showMessageDialog(null, "Atividade atualizada com sucesso!");

@@ -105,11 +105,13 @@ public class FuncoesAtividades {
     public static void atualizarAtividade(int id, String text, int parseInt) {
         try {
             Statement stmt = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
-            stmt.executeUpdate("UPDATE atividades_cadastradas SET nome = '" + text + "', nota_total = " + parseInt + " WHERE id = " + id + ";");
+            stmt.executeUpdate("UPDATE atividades_cadastradas SET nome = '" + text + "', nota_total = "
+                    + parseInt + " WHERE id = " + id + ";");
             System.out.println("Atividade atualizada com sucesso!");
             // atualizar a atividade para todos os alunos
             Statement a = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
-            a.executeUpdate("UPDATE atividades SET nome = '" + text + "', nota_total = " + parseInt + " WHERE atividade_id = " + id + ";");
+            a.executeUpdate("UPDATE atividades SET nome = '" + text + "', nota_total = "
+                    + parseInt + " WHERE atividade_id = " + id + ";");
         }catch (Exception e) {
             e.printStackTrace();
         }
