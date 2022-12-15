@@ -11,3 +11,7 @@ out
 /.idea/
 artifacts\
 .idea\
+conexao.json
+./conexao.json
+~/conexao.json
+\conexao.json
