@@ -1,6 +1,5 @@
-package br.variaveisglobais;
+package sql.mysql;
 
-import br.telas.Conexao;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 

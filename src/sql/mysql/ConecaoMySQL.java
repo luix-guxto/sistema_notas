@@ -1,11 +1,8 @@
 package sql.mysql;
 
-import br.variaveisglobais.VariaveisSQL;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Objects;
 
 public class ConecaoMySQL {
 
@@ -41,25 +38,4 @@ public class ConecaoMySQL {
             return null;
         }
     }
-    public static String statusConecao(){
-        return status;
-    }
-    public static void fecharConexao(){
-        try{
-            Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).close();
-            status = "Conexão fechada com sucesso!";
-        }catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
-    }
-    public static java.sql.Connection reiniciarConexao(){
-        fecharConexao();
-        java.sql.Connection con;
-        con = getConexaoMySql();
-        if(!status.equals("STATUS--->Não foi possivel realizar conexão") || con != null){
-            status = "Conexão reiniciada com sucesso!";
-        }
-        return con;
-    }
-
 }

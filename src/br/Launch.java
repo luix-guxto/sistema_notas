@@ -1,7 +1,7 @@
 package br;
 
 import br.telas.Login;
-import br.variaveisglobais.VariaveisSQL;
+import sql.mysql.VariaveisSQL;
 import ferramentas.utilidades.DataBase;
 
 public class Launch {
