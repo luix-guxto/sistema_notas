@@ -51,4 +51,14 @@ public class UsuarioDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public static void salvar(Usuario usuarioLogado) {
+        try {
+            Statement stmt = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
+            String sqlComando = "UPDATE professores SET nome = '" + usuarioLogado.getNome() + "', cpf = '" + usuarioLogado.getCpf() + "', numero = '" + usuarioLogado.getTelefone() + "', email = '" + usuarioLogado.getEmail() + "', senha = '" + usuarioLogado.getSenha() + "' WHERE id = " + usuarioLogado.getId();
+            stmt.executeUpdate(sqlComando);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -14,7 +14,6 @@ public class DataBase {
         try {
             stmt = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
             stmt.executeUpdate(sql);
-            System.out.println("Banco de dados criado com sucesso!");
         } catch (Exception e) {
             System.out.println("Erro ao criar o banco de dados!");
         }
@@ -27,7 +26,6 @@ public class DataBase {
         try {
             stmt = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
             stmt.executeUpdate(sql);
-            System.out.println("Tabela professores criada com sucesso!");
         } catch (Exception e) {
             System.out.println("Erro ao criar a tabela professores!");
             e.printStackTrace();
@@ -48,7 +46,6 @@ public class DataBase {
         try {
             stmt = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
             stmt.executeUpdate(sql);
-            System.out.println("Tabela alunos criada com sucesso!");
         } catch (Exception e) {
             System.out.println("Erro ao criar a tabela alunos!");
             e.printStackTrace();
@@ -71,7 +68,6 @@ public class DataBase {
         try {
             stmt = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
             stmt.executeUpdate(sql);
-            System.out.println("Tabela atividades criada com sucesso!");
         } catch (Exception e) {
             System.out.println("Erro ao criar a tabela atividades!");
             e.printStackTrace();
@@ -90,7 +86,6 @@ public class DataBase {
         try {
             stmt = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
             stmt.executeUpdate(sql);
-            System.out.println("Tabela atividades criada com sucesso!");
         } catch (Exception e) {
             System.out.println("Erro ao criar a tabela atividades!");
             e.printStackTrace();

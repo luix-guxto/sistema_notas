@@ -1,11 +1,13 @@
 package br.telas;
 
 import br.alunos.FuncoesAlunos;
+import br.imgs.ImageLoader;
 import br.usuarios.UsuarioLogado;
 import br.variaveisglobais.VariaveisTela;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class CadastrarAlunos extends JFrame {
 
@@ -16,6 +18,8 @@ public class CadastrarAlunos extends JFrame {
 
     public CadastrarAlunos(){
         super("Cadastrar Alunos");
+        BufferedImage icon = ImageLoader.loadImage(VariaveisTela.IMAGEM);
+        setIconImage(icon);
         setContentPane(fundo);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(VariaveisTela.LARGURA, VariaveisTela.ALTURA));

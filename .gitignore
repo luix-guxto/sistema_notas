@@ -7,4 +7,7 @@ src/br/variaveisglobais/VariaveisSQL.java
 out/
 out
 ~/out/
-/out/
+/out/!/.idea/
+/.idea/
+artifacts\
+.idea\

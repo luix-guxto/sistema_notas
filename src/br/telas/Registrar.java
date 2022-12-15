@@ -1,5 +1,6 @@
 package br.telas;
 
+import br.imgs.ImageLoader;
 import br.usuarios.UsuarioDAO;
 import ferramentas.utilidades.ValidaCPF;
 import ferramentas.utilidades.ValidaEmail;
@@ -8,6 +9,7 @@ import br.variaveisglobais.VariaveisTela;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
 import static javax.swing.JOptionPane.*;
@@ -29,6 +31,9 @@ public class Registrar extends JFrame {
 
     public Registrar() {
         super("Registrar");
+
+        BufferedImage icon = ImageLoader.loadImage(VariaveisTela.IMAGEM);
+        setIconImage(icon);
         setContentPane(fundo);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(VariaveisTela.LARGURA, VariaveisTela.ALTURA));

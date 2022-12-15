@@ -1,5 +1,6 @@
 package br.alunos;
 
+import br.usuarios.UsuarioLogado;
 import sql.mysql.ConecaoMySQL;
 
 import java.sql.Statement;
@@ -40,5 +41,121 @@ public class FuncoesAlunos {
             e.printStackTrace();
         }
         return true;
+    }
+
+
+
+    public static void atualizarAluno(Aluno aluno) {
+        // atualiza o aluno no banco de dados
+        try {
+            Statement stmt = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
+            stmt.executeUpdate("UPDATE alunos SET nome = '" + aluno.getNome() + "', faltas = " + aluno.getFaltas() + ", nota_final = " + aluno.getNota_final() + " WHERE id = " + aluno.getId() + ";");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Aluno buscarAlunoPorNome(String text) {
+        // busca um aluno pelo nome
+        try{
+            Statement stmt = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
+            var rs = stmt.executeQuery("SELECT * FROM alunos WHERE nome = '" + text + "';");
+            if(rs.next()){
+                if(rs.getInt("professor_id") != UsuarioLogado.getUsuarioLogado().getId()){
+                    System.out.println("Aluno nao pertence a esse professor!");
+                    return null;
+                }
+                return new Aluno(rs.getInt("id"), rs.getString("nome"), rs.getInt("faltas"), rs.getInt("nota_final"));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
+    public static Aluno buscarAlunoPorId(int parseInt) {
+        // busca um aluno pelo id
+        try{
+            Statement stmt = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
+            var rs = stmt.executeQuery("SELECT * FROM alunos WHERE id = " + parseInt + ";");
+            if(rs.next()){
+                if(rs.getInt("professor_id") != UsuarioLogado.getUsuarioLogado().getId()){
+                    System.out.println("Aluno nao pertence a esse professor!");
+                    return null;
+                }
+                return new Aluno(rs.getInt("id"), rs.getString("nome"), rs.getInt("faltas"), rs.getInt("nota_final"));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
+    public static Aluno[] listaAlunos() {
+        // retorna uma lista com os alunos do professor
+        try{
+            Statement stmt = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
+            var rs = stmt.executeQuery("SELECT * FROM alunos WHERE professor_id = " + UsuarioLogado.getUsuarioLogado().getId() + ";");
+            int i = 0;
+            while(rs.next()){
+                i++;
+            }
+            Aluno[] alunos = new Aluno[i];
+            rs = stmt.executeQuery("SELECT * FROM alunos WHERE professor_id = " + UsuarioLogado.getUsuarioLogado().getId() + ";");
+            i = 0;
+            while(rs.next()){
+                alunos[i] = new Aluno(rs.getInt("id"), rs.getString("nome"), rs.getInt("faltas"), rs.getInt("nota_final"));
+                i++;
+            }
+            return alunos;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static AtividadeAluno[] listaAtividades(Aluno aluno) {
+// retorna uma lista com as atividades do aluno
+        try{
+            Statement stmt = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
+            var rs = stmt.executeQuery("SELECT * FROM atividades WHERE aluno_id = " + aluno.getId() + ";");
+            int i = 0;
+            while(rs.next()){
+                i++;
+            }
+            AtividadeAluno[] atividades = new AtividadeAluno[i];
+            rs = stmt.executeQuery("SELECT * FROM atividades WHERE aluno_id = " + aluno.getId() + ";");
+            i = 0;
+            while(rs.next()){
+                atividades[i] = new AtividadeAluno(rs.getInt("id"), rs.getInt("atividade_id"), rs.getInt("aluno_id"), rs.getInt("nota_total"), rs.getInt("nota_recebida"), rs.getString("nome"));
+                i++;
+            }
+            return atividades;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void atualizarAtividadeAluno(AtividadeAluno atividadeAluno) {
+        // atualiza a atividade do aluno no banco de dados
+        try {
+            Statement stmt = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
+            stmt.executeUpdate("UPDATE atividades SET nota_recebida = " + atividadeAluno.getNota_recebida() + " WHERE id = " + atividadeAluno.getId() + ";");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void limparAlunos() {
+        // limpa a tabela de alunos
+        try {
+            Statement stmt = Objects.requireNonNull(ConecaoMySQL.getConexaoMySql()).createStatement();
+            stmt.executeUpdate("DELETE FROM alunos WHERE professor_id = " + UsuarioLogado.getUsuarioLogado().getId() + ";");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

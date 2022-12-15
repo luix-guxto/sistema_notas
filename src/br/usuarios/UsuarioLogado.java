@@ -10,4 +10,8 @@ public class UsuarioLogado {
     public static void setUsuarioLogado(Usuario usuarioLogado) {
         UsuarioLogado.usuarioLogado = usuarioLogado;
     }
+
+    public static void salvar() {
+        UsuarioDAO.salvar(usuarioLogado);
+    }
 }

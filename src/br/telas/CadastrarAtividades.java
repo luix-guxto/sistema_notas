@@ -1,11 +1,13 @@
 package br.telas;
 
 import br.atividades.FuncoesAtividades;
+import br.imgs.ImageLoader;
 import br.usuarios.UsuarioLogado;
 import br.variaveisglobais.VariaveisTela;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class CadastrarAtividades extends JFrame {
     private JPanel fundo;
@@ -16,6 +18,8 @@ public class CadastrarAtividades extends JFrame {
 
     public CadastrarAtividades(){
         super("Cadastrar Atividades");
+        BufferedImage icon = ImageLoader.loadImage(VariaveisTela.IMAGEM);
+        setIconImage(icon);
         setContentPane(fundo);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(VariaveisTela.LARGURA, VariaveisTela.ALTURA));

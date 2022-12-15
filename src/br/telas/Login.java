@@ -1,10 +1,12 @@
 package br.telas;
 
+import br.imgs.ImageLoader;
 import br.usuarios.UsuarioDAO;
 import br.variaveisglobais.VariaveisTela;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -18,6 +20,8 @@ public class Login extends JFrame{
     public Login(){
         super("Login");
         setContentPane(fundo);
+        BufferedImage icon = ImageLoader.loadImage(VariaveisTela.IMAGEM);
+        setIconImage(icon);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getRootPane().setDefaultButton(entrar);
         setPreferredSize(new Dimension(VariaveisTela.LARGURA, VariaveisTela.ALTURA));
