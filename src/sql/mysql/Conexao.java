@@ -14,7 +14,7 @@ public class Conexao extends JFrame {
     @SuppressWarnings("unused")
     private JLabel lblNome;
     private JTextField username;
-    private JTextField password;
+    private JPasswordField password;
     private JTextField database;
     private JTextField host;
     private JPanel fundo;
